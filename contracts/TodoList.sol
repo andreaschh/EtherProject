@@ -9,6 +9,8 @@ contract TodoList {
         bool completed;
     }
 
+    //test
+
     mapping(uint => Task) public tasks;
 
     event TaskCreated(
@@ -23,7 +25,7 @@ contract TodoList {
     );
 
     constructor() public {
-        createTask("Check out dappuniversity.com");
+        createTask("");
     }
 
     function createTask(string memory _content) public {

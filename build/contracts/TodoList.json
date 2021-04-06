@@ -2661,14 +2661,59 @@
   },
   "networks": {
     "5777": {
-      "events": {},
+      "events": {
+        "0xe21fa966ca5cd02748c0752352d18c48165e61cb55b4c29cccf924b5a95fcff1": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "completed",
+              "type": "bool"
+            }
+          ],
+          "name": "TaskCompleted",
+          "type": "event"
+        },
+        "0x05d0fb833127fc08168556d0e7ca9554fc3f6bc843b3b7d2bf1c35aea6bab660": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "id",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "string",
+              "name": "content",
+              "type": "string"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "completed",
+              "type": "bool"
+            }
+          ],
+          "name": "TaskCreated",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0x045C59dc17135ec3e84aFA90b8048cf12f5Ef9Bd",
-      "transactionHash": "0xdae75b078148b27dbc4fd6e9e1be26c04db90219f8313dc6686062049af7ea7a"
+      "address": "0xd79d7Cc2b98EBe01C7a749B092Ea862C3AC8e713",
+      "transactionHash": "0x16558f30a670f3119b41da221f493e7c5292ec7a9541cf5361056cf8c15bc4db"
     }
   },
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-04-06T10:44:49.305Z",
+  "updatedAt": "2021-04-06T20:36:09.605Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

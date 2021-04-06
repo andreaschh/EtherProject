@@ -25,6 +25,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -53,6 +55,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.web3j:core:3.3.1-android'
-    implementation 'io.github.novacrypto: BIP39: 0.1.9' // used to generate mnemonic words
+    //implementation 'io.github.novacrypto: BIP39: 0.1.9' // used to generate mnemonic words
+    implementation 'androidx.multidex:multidex:2.0.1'
 
 }
