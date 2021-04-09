@@ -21,8 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity {
-    EditText txtPrivateKey,createwallet;
+    EditText txtPrivateKey;
     Button btnimportkey,btncreate;
 
     //DatabaseReference reff;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(cd);
 
         txtPrivateKey=(EditText)findViewById(R.id.txtPrivateKey);
-        createwallet=findViewById(R.id.CreateWallet);
         btnimportkey=(Button)findViewById(R.id.btnimportkey);
         btncreate=findViewById(R.id.btncreate);
 

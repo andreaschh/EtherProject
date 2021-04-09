@@ -35,14 +35,6 @@
         app:backgroundTint="#90ee90"
         app:strokeColor="#90ee90 " />
 
-    <EditText
-        android:id="@+id/CreateWallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Create a wallet"
-        android:inputType="textPersonName" />
-
     <Button
         android:id="@+id/btncreate"
         android:layout_width="match_parent"

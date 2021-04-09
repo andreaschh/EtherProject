@@ -1,18 +1,38 @@
-//const HDWalletProvider=require('truffle-hdwallet-provider');
+require('dotenv').config();
+const HDWalletProvider=require('truffle-hdwallet-provider');
 
 module.exports = {
 networks: {
-    //mainnet:{
-    //provider:,
-    //gasPrice:25000000000,
-    //network_id:3
-    //}
+
      development: {
       host: "127.0.0.1",     // Localhost (default: none)
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",
-             }
+
      },
+      ropsten:{
+              provider:function(){
+              return new HDWalletProvider(
+              process.env.MNEMONIC,
+              'https://ropsten.infura.io/${process.env.INFURA_API_KEY}'
+              )
+              },
+              gasPrice:25000000000,
+              network_id:3
+              },
+     mainnet:{
+         provider:function(){
+         return new HDWalletProvider(
+         process.env.MNEMONIC,
+         'https://mainnet.infura.io/${process.env.INFURA_API_KEY}'
+         )
+         },
+         gas:5000000,
+         gasPrice:25000000000,
+         confirmations:2,
+         network_id:1
+         }
+       },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
@@ -45,7 +65,7 @@ networks: {
         }
 
     }
-  }
+  };
 
 
 
