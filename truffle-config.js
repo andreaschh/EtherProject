@@ -1,5 +1,9 @@
-require('dotenv').config();
-const HDWalletProvider=require('truffle-hdwallet-provider');
+//require('dotenv').config();
+var HDWalletProvider=require('truffle-hdwallet-provider');
+
+var infura_apikey="5a8ec5d319e7487fb06ca720eb0f348e";
+
+var mnemonic="drill hunt food team moment mistake bird attitude tunnel ecology sister resist";
 
 module.exports = {
 networks: {
@@ -10,28 +14,23 @@ networks: {
       network_id: "*",
 
      },
-      ropsten:{
-              provider:function(){
-              return new HDWalletProvider(
-              process.env.MNEMONIC,
-              'https://ropsten.infura.io/${process.env.INFURA_API_KEY}'
-              )
-              },
-              gasPrice:25000000000,
-              network_id:3
-              },
-     mainnet:{
-         provider:function(){
-         return new HDWalletProvider(
-         process.env.MNEMONIC,
-         'https://mainnet.infura.io/${process.env.INFURA_API_KEY}'
-         )
-         },
-         gas:5000000,
-         gasPrice:25000000000,
-         confirmations:2,
-         network_id:1
-         }
+      rinkeby:{
+                   provider: function() {
+                          return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/5a8ec5d319e7487fb06ca720eb0f348e");
+                         },
+                         network_id: 4,
+                         gas: 4500000,
+                         gasPrice: 45000000000000000,
+                  },
+     main:{
+                    provider: function() {
+                      return new HDWalletProvider(mnemonic, "https://mainnet.infura.io/v3/5a8ec5d319e7487fb06ca720eb0f348e");
+                             },
+                             network_id: 3,
+                   gas: 4500000,
+                 gasPrice: 45000000000000000,
+                  }
+
        },
     // Another network with more advanced options...
     // advanced: {
