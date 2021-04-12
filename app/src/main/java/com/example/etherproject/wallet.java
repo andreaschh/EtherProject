@@ -38,6 +38,7 @@ public class wallet extends AppCompatActivity {
     Credentials credentials;
     TextView txtaddress;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,19 +55,26 @@ public class wallet extends AppCompatActivity {
         setupBouncyCastle();
 
         txtaddress = findViewById(R.id.text_address);
+
         EditText Edtpath = findViewById(R.id.walletpath);
         final String etheriumwalletPath = Edtpath.getText().toString();
-
         file = new File(getFilesDir() + etheriumwalletPath);
 
-        if (!file.mkdirs()) {
-            file.mkdirs();
-        } else {
-            Toast.makeText(getApplicationContext(), "Directory already created", Toast.LENGTH_LONG).show();
+
+        if (Edtpath.getText().toString().length() == 0)
+            Edtpath.setError("File name required");
+        else {
+
+                if (!file.mkdirs()) {
+                    file.mkdirs();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Directory already created", Toast.LENGTH_LONG).show();
+
+                }
+            }
 
         }
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,22 +112,27 @@ public class wallet extends AppCompatActivity {
 
     public void createWallet(View v)  {
 
+
         EditText Edtpassword = findViewById(R.id.password);
         final String password = Edtpassword.getText().toString();  // this will be your etherium password
-        try {
-            // generating the etherium wallet
-            Walletname = WalletUtils.generateLightNewWalletFile(password, file);
-            credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
 
-            txtaddress.setText(getString(R.string.your_address) + credentials.getAddress());
+        if( Edtpassword.getText().toString().length() == 0 )
+            Edtpassword.setError( "Password Required" );
+        else {
+            try {
+                // generating the etherium wallet
+                Walletname = WalletUtils.generateLightNewWalletFile(password, file);
+                credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
 
-           //Intent in=new Intent(this,Dashboard.class);
-            //startActivity(in);
+                txtaddress.setText(getString(R.string.your_address) + credentials.getAddress());
 
-        }
-        catch(Exception e){
-            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                //Intent in=new Intent(this,Dashboard.class);
+                //startActivity(in);
 
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+
+            }
         }
 
     }

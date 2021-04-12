@@ -38,17 +38,15 @@
             android:layout_marginTop="20dp"
             android:onClick="createWallet"
             android:text="Create Wallet" />
+
         <TextView
             android:id="@+id/text_address"
-            android:text="Address"
-            android:textSize="15sp"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Public Address"
+            android:textSize="15sp" />
 
-        <View
-            android:layout_marginTop="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="3dp"/>
+      
 
 </LinearLayout>
