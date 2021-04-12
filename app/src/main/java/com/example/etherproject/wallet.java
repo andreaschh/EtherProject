@@ -7,6 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,24 +42,23 @@ public class wallet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
-        txtaddress = findViewById(R.id.text_address);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ColorDrawable cd = new ColorDrawable(Color.parseColor("#90ee90"));
         getSupportActionBar().setBackgroundDrawable(cd);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-//enter your own infura api key below
         web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
 
         setupBouncyCastle();
 
-        //  this is the pathname for the file that will be created and stores the wallet details
+        txtaddress = findViewById(R.id.text_address);
         EditText Edtpath = findViewById(R.id.walletpath);
         final String etheriumwalletPath = Edtpath.getText().toString();
 
-        file = new File(getFilesDir() + etheriumwalletPath);// the etherium wallet location
-        //create the directory if it does not exist
+        file = new File(getFilesDir() + etheriumwalletPath);
+
         if (!file.mkdirs()) {
             file.mkdirs();
         } else {
@@ -66,17 +68,35 @@ public class wallet extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_settings, menu);
+        return true;
+
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            Intent in = new Intent(this, com.example.etherproject.send.class);
+            startActivity(in);
+        }else if (id == R.id.action_logout) {
+            Intent in = new Intent(this, MainActivity.class);
+            startActivity(in);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     private void setupBouncyCastle() {
         final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
         if (provider == null) {
-            // Web3j will set up a provider  when it's used for the first time.
             return;
         }
         if (provider.getClass().equals(BouncyCastleProvider.class)) {
             return;
         }
-        //There is a possibility  the bouncy castle registered by android may not have all ciphers
-        //so we  substitute with the one bundled in the app.
+
         Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
         Security.insertProviderAt(new BouncyCastleProvider(), 1);
 
@@ -90,8 +110,11 @@ public class wallet extends AppCompatActivity {
             // generating the etherium wallet
             Walletname = WalletUtils.generateLightNewWalletFile(password, file);
             credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
+
             txtaddress.setText(getString(R.string.your_address) + credentials.getAddress());
-            
+
+           //Intent in=new Intent(this,Dashboard.class);
+            //startActivity(in);
 
         }
         catch(Exception e){
@@ -99,8 +122,6 @@ public class wallet extends AppCompatActivity {
 
         }
 
-       //Intent in=new Intent(wallet.this,Dashboard.class);
-        //startActivity(in);
     }
 
 

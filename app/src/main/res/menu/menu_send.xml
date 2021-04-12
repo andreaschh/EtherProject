@@ -10,6 +10,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/action_logout"
+        android:icon="@drawable/logout"
         android:orderInCategory="2"
         android:title="Logout"
         app:showAsAction="always" />
