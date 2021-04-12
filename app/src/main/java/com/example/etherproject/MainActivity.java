@@ -44,22 +44,10 @@ public class MainActivity extends AppCompatActivity {
         btncreate=findViewById(R.id.btncreate);
 
 
-
-        //key=new importkey();
-       // reff= FirebaseDatabase.getInstance().getReference().child("importkey");
-
-
-
-        //fAuth= FirebaseAuth.getInstance();
-
         btnimportkey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                Long PrivateKey=Long.parseLong(txtPrivateKey.getText().toString());
-                //key.setPrivatekey(PrivateKey);
-                //reff.push().setValue(key);
                 Toast.makeText(MainActivity.this,"sdadsdsas",Toast.LENGTH_LONG).show();
 
                 Intent in=new Intent(MainActivity.this,Dashboard.class);
@@ -78,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     btncreate.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent in=new Intent(MainActivity.this,createwallet.class);
+            Intent in=new Intent(MainActivity.this,wallet.class);
             startActivity(in);
 
         }
