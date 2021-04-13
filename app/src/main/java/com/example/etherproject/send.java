@@ -35,6 +35,10 @@ public class send extends AppCompatActivity {
         }else if (id == R.id.action_logout) {
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
+        }else if(id==R.id.action_dashboard)
+        {
+            Intent in =new Intent(this,Dashboard.class);
+            startActivity(in);
         }
 
         return super.onOptionsItemSelected(item);

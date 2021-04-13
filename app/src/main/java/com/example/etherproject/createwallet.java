@@ -41,7 +41,7 @@ public class createwallet extends AppCompatActivity {
         }else if (id == R.id.action_logout) {
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
-        }
+        } 
 
         return super.onOptionsItemSelected(item);
     }

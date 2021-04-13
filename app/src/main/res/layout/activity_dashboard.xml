@@ -16,23 +16,32 @@
         android:gravity="center"
         android:text="DASHBOARD" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName3"
+    <TextView
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:ems="10"
-        android:hint="Address"
-        android:inputType="textPersonName" />
+        android:freezesText="true"
+        android:gravity="center"
+        android:hint="Address" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName4"
+    <Button
+        android:id="@+id/buttonbalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:ems="10"
-        android:hint="Balance ETH"
-        android:inputType="textPersonName" />
+        android:onClick="retrieveBalance"
+        android:text="Balance" />
+
+
+    <TextView
+        android:id="@+id/text_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/please_check_your_balance"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/textView7"

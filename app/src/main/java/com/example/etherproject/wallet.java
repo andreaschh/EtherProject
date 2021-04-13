@@ -36,7 +36,7 @@ public class wallet extends AppCompatActivity {
     File file;
     String Walletname;
     Credentials credentials;
-    TextView txtaddress;
+    TextView  txtaddress;
 
 
     @Override
@@ -92,6 +92,10 @@ public class wallet extends AppCompatActivity {
         }else if (id == R.id.action_logout) {
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
+        }else if(id==R.id.action_dashboard)
+        {
+            Intent in =new Intent(this,Dashboard.class);
+            startActivity(in);
         }
 
         return super.onOptionsItemSelected(item);
@@ -112,6 +116,21 @@ public class wallet extends AppCompatActivity {
 
     public void createWallet(View v)  {
 
+        web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
+
+        Toast.makeText(getApplicationContext()," Now Connecting to Ethereum network",Toast.LENGTH_LONG).show();
+        try {
+            //if the client version has an error the user will not gain access if successful the user will get connnected
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
+        }
+
 
         EditText Edtpassword = findViewById(R.id.password);
         final String password = Edtpassword.getText().toString();  // this will be your etherium password
@@ -124,10 +143,16 @@ public class wallet extends AppCompatActivity {
                 Walletname = WalletUtils.generateLightNewWalletFile(password, file);
                 credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
 
-                txtaddress.setText(getString(R.string.your_address) + credentials.getAddress());
+                txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
 
-                //Intent in=new Intent(this,Dashboard.class);
-                //startActivity(in);
+
+                //Bundle to pass public address to Dashboard
+                Intent in=new Intent(this,Dashboard.class);
+                String pk=txtaddress.getText().toString();
+                Bundle bundle=new Bundle();
+                bundle.putString("pk", pk);
+                in.putExtras(bundle);
+                startActivity(in);
 
             } catch (Exception e) {
                 Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
@@ -135,7 +160,9 @@ public class wallet extends AppCompatActivity {
             }
         }
 
+
+    }
+
     }
 
 
-}
