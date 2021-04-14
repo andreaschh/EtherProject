@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,13 @@ import org.w3c.dom.Text;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 public class Dashboard extends AppCompatActivity {
@@ -29,17 +37,33 @@ public class Dashboard extends AppCompatActivity {
         ColorDrawable cd = new ColorDrawable(Color.parseColor("#90ee90"));
         getSupportActionBar().setBackgroundDrawable(cd);
 
-        Intent getIntent=getIntent();
-        TextView text=(TextView)findViewById(R.id.address);
-        text.setText(getIntent.getStringExtra("pk"));
+        //Intent getIntent=getIntent();
+        //TextView text=(TextView)findViewById(R.id.address);
+        //text.setText(getIntent.getStringExtra("pk"));
+        String line="";
 
-        txt_balance = findViewById(R.id.text_balance);
+        try {
+            FileInputStream fin = openFileInput("pk.txt");
+            DataInputStream din = new DataInputStream(fin);
+            InputStreamReader isr = new InputStreamReader(din);
+            BufferedReader br = new BufferedReader(isr);
+
+            String line1;
+            if ((line1 = br.readLine()) != null) {
+                line = line1;
+            }
+            Log.d("patates2",line1);
+            fin.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //txt_balance = findViewById(R.id.text_balance);
     }
 
     public void retrieveBalance (View v)  {
-
-
-
         txt_balance.setText("ksdkds"+ txt_balance);
         //get wallet's balance
 

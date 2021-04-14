@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:onClick="retrieveBalance"
-        android:text="Balance" />
+        android:text="Balance"
+        app:backgroundTint="#90ee90" />
 
 
     <TextView

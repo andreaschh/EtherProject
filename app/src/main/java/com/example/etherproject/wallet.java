@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +26,14 @@ import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.security.Provider;
 import java.security.Security;
@@ -38,6 +46,7 @@ public class wallet extends AppCompatActivity {
     Credentials credentials;
     TextView  txtaddress;
 
+    private String file1="pk.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +62,9 @@ public class wallet extends AppCompatActivity {
         web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
 
         setupBouncyCastle();
+        createWallet();
 
-        txtaddress = findViewById(R.id.text_address);
+       txtaddress = findViewById(R.id.text_address);
 
         EditText Edtpath = findViewById(R.id.walletpath);
         final String etheriumwalletPath = Edtpath.getText().toString();
@@ -75,6 +85,78 @@ public class wallet extends AppCompatActivity {
             }
 
         }
+
+    public void createWallet() {
+
+        Button btnwallet=findViewById(R.id.createwallet);
+        web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
+
+        Toast.makeText(getApplicationContext()," Now Connecting to Ethereum network",Toast.LENGTH_LONG).show();
+        try {
+            //if the client version has an error the user will not gain access if successful the user will get connnected
+            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
+            if (!clientVersion.hasError()) {
+                Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
+        }
+
+
+        btnwallet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText Edtpassword = findViewById(R.id.password);
+                final String password = Edtpassword.getText().toString();  // this will be your etherium password
+
+                if( Edtpassword.getText().toString().length() == 0 )
+                    Edtpassword.setError( "Password Required" );
+                else {
+                    try {
+                        // generating the etherium wallet
+                        Walletname = WalletUtils.generateLightNewWalletFile(password, file);
+                        credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
+
+                        try {
+                            FileOutputStream fout = openFileOutput(file1,0);
+                            fout.write(Edtpassword.getText().toString().getBytes());
+                            fout.close();
+
+
+                            txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
+                            Toast.makeText(getApplicationContext(),"All data added successful",Toast.LENGTH_LONG).show();
+
+
+                            Log.d("patates",txtaddress.getText().toString());
+                        }catch (Exception ex)
+                        {
+                            ex.printStackTrace();
+                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+
+                        }
+                        //txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
+
+
+                        //Bundle to pass public address to Dashboard
+                        Intent in=new Intent(wallet.this,Dashboard.class);
+                        //String pk=txtaddress.getText().toString();
+                        //Bundle bundle=new Bundle();
+                        //bundle.putString("pk", pk);
+                        //in.putExtras(bundle);
+                        startActivity(in);
+
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+
+            }
+        });
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,55 +196,8 @@ public class wallet extends AppCompatActivity {
 
     }
 
-    public void createWallet(View v)  {
-
-        web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
-
-        Toast.makeText(getApplicationContext()," Now Connecting to Ethereum network",Toast.LENGTH_LONG).show();
-        try {
-            //if the client version has an error the user will not gain access if successful the user will get connnected
-            Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
-            if (!clientVersion.hasError()) {
-                Toast.makeText(getApplicationContext(),"Connected",Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),"Error while connecting",Toast.LENGTH_LONG).show();
-        }
+}
 
 
-        EditText Edtpassword = findViewById(R.id.password);
-        final String password = Edtpassword.getText().toString();  // this will be your etherium password
-
-        if( Edtpassword.getText().toString().length() == 0 )
-            Edtpassword.setError( "Password Required" );
-        else {
-            try {
-                // generating the etherium wallet
-                Walletname = WalletUtils.generateLightNewWalletFile(password, file);
-                credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
-
-                txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
-
-
-                //Bundle to pass public address to Dashboard
-                Intent in=new Intent(this,Dashboard.class);
-                String pk=txtaddress.getText().toString();
-                Bundle bundle=new Bundle();
-                bundle.putString("pk", pk);
-                in.putExtras(bundle);
-                startActivity(in);
-
-            } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-
-            }
-        }
-
-
-    }
-
-    }
 
 

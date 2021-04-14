@@ -15,24 +15,15 @@
         android:hint="Add Token"
         android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName10"
+    <Button
+        android:id="@+id/removewallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Remove wallet"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Import New Key"
-        android:inputType="textPersonName" />
+        android:text="Remove Wallet"
+        app:backgroundTint="#90ee90" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/exportprivatekey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Export Private Key"

@@ -18,9 +18,6 @@
             android:parentActivityName=".MainActivity">
         </activity>
         <activity
-            android:name=".createwallet"
-            android:label="Information"></activity>
-        <activity
             android:name=".Settings"
             android:label="Settings"
             android:parentActivityName=".Dashboard" />
