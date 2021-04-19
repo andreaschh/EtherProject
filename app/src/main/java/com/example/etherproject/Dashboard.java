@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import org.w3c.dom.Text;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.http.HttpService;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -30,6 +32,7 @@ public class Dashboard extends AppCompatActivity {
     Web3j web3;
     TextView  txt_balance;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +41,9 @@ public class Dashboard extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(cd);
 
         //Intent getIntent=getIntent();
-        //TextView text=(TextView)findViewById(R.id.address);
+        TextView address=(TextView)findViewById(R.id.address);
         //text.setText(getIntent.getStringExtra("pk"));
         String line="";
-
         try {
             FileInputStream fin = openFileInput("pk.txt");
             DataInputStream din = new DataInputStream(fin);
@@ -52,7 +54,8 @@ public class Dashboard extends AppCompatActivity {
             if ((line1 = br.readLine()) != null) {
                 line = line1;
             }
-            Log.d("patates2",line1);
+            address.setText(line1);
+            //Log.d("patates2",line1);
             fin.close();
 
         } catch (FileNotFoundException e) {
@@ -60,23 +63,58 @@ public class Dashboard extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //txt_balance = findViewById(R.id.text_balance);
+        retrieveBalance();
+
     }
 
-    public void retrieveBalance (View v)  {
-        txt_balance.setText("ksdkds"+ txt_balance);
-        //get wallet's balance
 
-        try {
-            EthGetBalance balanceWei = web3.ethGetBalance(String.valueOf(txt_balance), DefaultBlockParameterName.LATEST).
-                    sendAsync().get();
-            TextView txtbalance=findViewById(R.id.text_balance);
-            txtbalance.setText(getString(R.string.your_balance) + balanceWei.getBalance());
-        }
-        catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Balance failed", Toast.LENGTH_LONG).show();
+    public void retrieveBalance ()  {
+        txt_balance = findViewById(R.id.text_balance);
+        Button btnbalance=findViewById(R.id.buttonbalance);
 
-        }
+        btnbalance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String line="";
+                try {
+                    FileInputStream fin = openFileInput("pk.txt");
+                    DataInputStream din = new DataInputStream(fin);
+                    InputStreamReader isr = new InputStreamReader(din);
+                    BufferedReader br = new BufferedReader(isr);
+
+                    String line1;
+                    if ((line1 = br.readLine()) != null) {
+                        line = line1;
+                    }
+                    txt_balance.setText(line1);
+                    //Log.d("patates2",line1);
+                    fin.close();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                txt_balance.setText("ksdkds"+ txt_balance);
+                //get wallet's balance
+
+                try {
+                    EthGetBalance balanceWei = web3.ethGetBalance(String.valueOf(txt_balance), DefaultBlockParameterName.LATEST).
+                            sendAsync().get();
+                    TextView txtbalance=findViewById(R.id.text_balance);
+                    txtbalance.setText(getString(R.string.your_balance) + balanceWei.getBalance());
+                }
+
+                catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Balance failed", Toast.LENGTH_LONG).show();
+
+                }
+
+
+            }
+        });
+        Log.d("patates2", String.valueOf(txt_balance));
+
     }
 
     @Override
@@ -86,7 +124,7 @@ public class Dashboard extends AppCompatActivity {
         return true;
 
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public  boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.action_send) {

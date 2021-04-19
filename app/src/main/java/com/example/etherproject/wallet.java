@@ -118,33 +118,20 @@ public class wallet extends AppCompatActivity {
                         // generating the etherium wallet
                         Walletname = WalletUtils.generateLightNewWalletFile(password, file);
                         credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
-
+                        txtaddress.setText("Your public address is: "+ credentials.getAddress());
+                        Toast.makeText(getApplicationContext(),"All data added successful",Toast.LENGTH_LONG).show();
                         try {
                             FileOutputStream fout = openFileOutput(file1,0);
-                            fout.write(Edtpassword.getText().toString().getBytes());
+                            fout.write(txtaddress.getText().toString().getBytes());
                             fout.close();
-
-
-                            txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
-                            Toast.makeText(getApplicationContext(),"All data added successful",Toast.LENGTH_LONG).show();
-
-
-                            Log.d("patates",txtaddress.getText().toString());
                         }catch (Exception ex)
                         {
                             ex.printStackTrace();
                             Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
 
                         }
-                        //txtaddress.setText("Your public address is:\n"+ credentials.getAddress());
-
-
-                        //Bundle to pass public address to Dashboard
                         Intent in=new Intent(wallet.this,Dashboard.class);
-                        //String pk=txtaddress.getText().toString();
-                        //Bundle bundle=new Bundle();
-                        //bundle.putString("pk", pk);
-                        //in.putExtras(bundle);
+
                         startActivity(in);
 
                     } catch (Exception e) {

@@ -24,7 +24,8 @@
         android:ems="10"
         android:freezesText="true"
         android:gravity="center"
-        android:hint="Address" />
+        android:hint="Address"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/buttonbalance"
