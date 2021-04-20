@@ -26,6 +26,14 @@
         android:id="@+id/exportprivatekey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="exportprivatekey"
         android:text="Export Private Key"
         app:backgroundTint="#90ee90" />
+
+    <TextView
+        android:id="@+id/text_privatekey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="TextView" />
 </LinearLayout>

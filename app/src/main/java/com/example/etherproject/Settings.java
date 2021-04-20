@@ -6,8 +6,26 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 
 public class Settings extends AppCompatActivity {
 
@@ -18,6 +36,33 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ColorDrawable cd = new ColorDrawable(Color.parseColor("#90ee90"));
         getSupportActionBar().setBackgroundDrawable(cd);
+
+
+        TextView privatekey=(TextView)findViewById(R.id.text_privatekey);
+        Button export=(Button)findViewById(R.id.exportprivatekey);
+
+        export.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ECKeyPair ecKeyPair = null;
+                try {
+                    ecKeyPair = Keys.createEcKeyPair();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchProviderException e) {
+                    e.printStackTrace();
+                }
+                BigInteger privateKeyInDec = ecKeyPair.getPrivateKey();
+
+                String sPrivatekeyInHex = privateKeyInDec.toString(16);
+                privatekey.setText("Your Private key is:\n"+"0x"+sPrivatekeyInHex);
+
+            }
+        });
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.Keys;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -35,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
 
@@ -119,6 +122,7 @@ public class wallet extends AppCompatActivity {
                         Walletname = WalletUtils.generateLightNewWalletFile(password, file);
                         credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
                         txtaddress.setText("Your public address is: "+ credentials.getAddress());
+
                         Toast.makeText(getApplicationContext(),"All data added successful",Toast.LENGTH_LONG).show();
                         try {
                             FileOutputStream fout = openFileOutput(file1,0);

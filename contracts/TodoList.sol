@@ -9,7 +9,6 @@ contract TodoList {
         bool completed;
     }
 
-    //sdfsdfsdfsdfdsfdsfsdf
 
     mapping(uint => Task) public tasks;
 
