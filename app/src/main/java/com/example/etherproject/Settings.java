@@ -40,27 +40,35 @@ public class Settings extends AppCompatActivity {
 
         TextView privatekey=(TextView)findViewById(R.id.text_privatekey);
         Button export=(Button)findViewById(R.id.exportprivatekey);
-
         export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ECKeyPair ecKeyPair = null;
+                String line="";
                 try {
-                    ecKeyPair = Keys.createEcKeyPair();
-                } catch (InvalidAlgorithmParameterException e) {
+                    FileInputStream fin = openFileInput("privatekey.txt");
+                    DataInputStream din = new DataInputStream(fin);
+                    InputStreamReader isr = new InputStreamReader(din);
+                    BufferedReader br = new BufferedReader(isr);
+
+                    String line1;
+                    if ((line1 = br.readLine()) != null) {
+                        line = line1;
+                    }
+                    privatekey.setText("Your private key is:\n"+"0x"+line1);
+                    //privatekey.setText(line1);
+                    //Log.d("patates3", String.valueOf(privatekey));
+                    fin.close();
+
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchProviderException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
-                BigInteger privateKeyInDec = ecKeyPair.getPrivateKey();
-
-                String sPrivatekeyInHex = privateKeyInDec.toString(16);
-                privatekey.setText("Your Private key is:\n"+"0x"+sPrivatekeyInHex);
 
             }
         });
+
+
 
 
     }

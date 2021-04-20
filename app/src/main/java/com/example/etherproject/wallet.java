@@ -38,6 +38,9 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.Provider;
 import java.security.Security;
 
@@ -50,6 +53,7 @@ public class wallet extends AppCompatActivity {
     TextView  txtaddress;
 
     private String file1="pk.txt";
+    private String file2="privatekey.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +125,8 @@ public class wallet extends AppCompatActivity {
                         // generating the etherium wallet
                         Walletname = WalletUtils.generateLightNewWalletFile(password, file);
                         credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
-                        txtaddress.setText("Your public address is: "+ credentials.getAddress());
+                        txtaddress.setText("Your public address is:"+ credentials.getAddress());
+
 
                         Toast.makeText(getApplicationContext(),"All data added successful",Toast.LENGTH_LONG).show();
                         try {
@@ -133,6 +138,28 @@ public class wallet extends AppCompatActivity {
                             ex.printStackTrace();
                             Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
 
+                        }
+                        ECKeyPair ecKeyPair = null;
+                        try {
+                            ecKeyPair = Keys.createEcKeyPair();
+                        } catch (InvalidAlgorithmParameterException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchProviderException e) {
+                            e.printStackTrace();
+                        }
+                        BigInteger privateKeyInDec = ecKeyPair.getPrivateKey();
+                        String sPrivatekeyInHex = privateKeyInDec.toString(16);
+                        //privatekey.setText("Your Private key is:\n"+"0x"+sPrivatekeyInHex);
+                        //Log.d(sPrivatekeyInHex, "patates");
+                        try{
+                            FileOutputStream fout = openFileOutput(file2,0);
+                            fout.write(sPrivatekeyInHex.getBytes());
+                            fout.close();
+                        }catch (Exception ex)
+                        {
+                            ex.printStackTrace();
                         }
                         Intent in=new Intent(wallet.this,Dashboard.class);
 

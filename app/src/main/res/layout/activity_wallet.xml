@@ -17,19 +17,20 @@
             android:layout_height="wrap_content"/>
 
 
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/walletpath"
             android:hint="Wallet Name" />
 
+
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/password"
-            android:hint="Password" />
-
+            android:ems="10"
+            android:hint="Enter your password"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/createwallet"
