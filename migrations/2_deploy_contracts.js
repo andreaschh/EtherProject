@@ -1,5 +1,5 @@
-var TodoList = artifacts.require("TodoList");
+const Token= artifacts.require("Token");
 
 module.exports = function (deployer) {
-  deployer.deploy(TodoList);
+  deployer.deploy(Token);
 };
