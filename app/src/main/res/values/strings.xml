@@ -29,4 +29,5 @@
     <string name="your_address">"Your address is:"</string>
     <string name="please_check_your_balance"> your balance will be shown here</string>
     <string name="your_balance">\" your balance in wei is : \"</string>
+
 </resources>

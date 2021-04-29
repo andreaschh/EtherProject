@@ -1,20 +1,19 @@
 package com.example.etherproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.web3j.crypto.ECKeyPair;
-import org.web3j.crypto.Keys;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.muddzdev.styleabletoast.StyleableToast;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -22,10 +21,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 public class Settings extends AppCompatActivity {
 
@@ -34,7 +29,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ColorDrawable cd = new ColorDrawable(Color.parseColor("#90ee90"));
+        ColorDrawable cd = new ColorDrawable(Color.parseColor("#0000FF"));
         getSupportActionBar().setBackgroundDrawable(cd);
 
 
@@ -55,8 +50,7 @@ public class Settings extends AppCompatActivity {
                         line = line1;
                     }
                     privatekey.setText("Your private key is:\n"+"0x"+line1);
-                    //privatekey.setText(line1);
-                    //Log.d("patates3", String.valueOf(privatekey));
+
                     fin.close();
 
                 } catch (FileNotFoundException e) {
@@ -67,8 +61,76 @@ public class Settings extends AppCompatActivity {
 
             }
         });
+        TextView exportpublicaddress=findViewById(R.id.exportpublicaddress);
+
+        Button exportpublic=findViewById(R.id.btnpublicaddress);
+        exportpublic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    FileInputStream fin = openFileInput("pk.txt");
+                    DataInputStream din = new DataInputStream(fin);
+                    InputStreamReader isr = new InputStreamReader(din);
+                    BufferedReader br = new BufferedReader(isr);
+
+                    int i = 0;
+                    String lines[] = new String[3];
+                    String line1;
+
+                    while ((line1 = br.readLine()) != null) {
+                        lines[i] = line1;
+                        i++;
+                    }
+                    exportpublicaddress.setText(lines[0]);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
 
+            }
+        });
+
+    Button removewallet=findViewById(R.id.removewallet);
+
+    removewallet.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                FileInputStream fin = openFileInput("pk.txt");
+                DataInputStream din = new DataInputStream(fin);
+                InputStreamReader isr = new InputStreamReader(din);
+                BufferedReader br = new BufferedReader(isr);
+
+                int i = 0;
+                String lines[] = new String[3];
+                String line1;
+
+                while ((line1 = br.readLine()) != null) {
+                    lines[i] = line1;
+                    i++;
+                }
+                String p=lines[0];
+                String p1=lines[1];
+                String p2=lines[2];
+
+                lines[0]=null;
+                lines[1]=null;
+                lines[2]=null;
+                StyleableToast.makeText(getApplicationContext(), "You have successfully remove your wallet!", Toast.LENGTH_LONG, R.style.customToast).show();
+                fin.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Intent in=new Intent(Settings.this,MainActivity.class);
+            startActivity(in);
+
+        }
+    });
 
 
     }

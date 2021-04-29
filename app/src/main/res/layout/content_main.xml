@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="Login Page"
-        android:textColor="@color/purple_700"
-        android:textSize="50dp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/txtPrivateKey"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Import Private key"
-        android:inputType="textPersonName" />
+<androidx.viewpager.widget.ViewPager
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:id="@+id/viewPager"/>
 
     <Button
         android:id="@+id/btnimportkey"
@@ -32,7 +17,7 @@
         android:layout_height="wrap_content"
         android:onClick="btnimportkey"
         android:text="Import Private key"
-        app:backgroundTint="#90ee90"
+        app:backgroundTint="#0000FF"
         app:strokeColor="#90ee90 " />
 
     <Button
@@ -41,6 +26,8 @@
         android:layout_height="wrap_content"
         android:onClick="privatekeys"
         android:text="Create Wallet"
-        app:backgroundTint="#90ee90" />
+        app:backgroundTint="#0000FF" />
+
+
 
 </LinearLayout>

@@ -6,22 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".send">
+
         <TextView
             android:id="@+id/text_headline"
-            android:text="Create Etherium Wallet"
-
-            android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="Create an Etherium Wallet:"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/walletpath"
-            android:hint="Wallet Name" />
+            android:hint="Wallet Name"
+            android:drawableLeft="@drawable/ic_baseline_account_balance_wallet_24"/>
 
 
         <EditText
@@ -30,7 +34,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter your password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/ic_baseline_vpn_key_24"/>
 
         <Button
             android:id="@+id/createwallet"
@@ -39,7 +44,7 @@
             android:layout_marginTop="20dp"
             android:onClick="createWallet"
             android:text="Create Wallet"
-            app:backgroundTint="#90ee90" />
+            app:backgroundTint="#0000FF" />
 
         <TextView
             android:id="@+id/text_address"
@@ -47,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:text="Public Address"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:visibility="invisible"/>
 
 
 

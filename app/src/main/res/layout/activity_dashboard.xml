@@ -14,53 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:gravity="center"
-        android:text="DASHBOARD" />
-
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:ems="10"
-        android:freezesText="true"
-        android:gravity="center"
-        android:hint="Address"
-        android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/buttonbalance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:onClick="retrieveBalance"
-        android:text="Balance"
-        app:backgroundTint="#90ee90" />
-
-
-    <TextView
-        android:id="@+id/text_balance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="@string/please_check_your_balance"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:gravity="center"
-        android:text="TOKENS"
+        android:text="HERE YOU CAN ADD TOKENS TO YOUR ACCOUNT BY USING THE BROWSER ABOVE:"
         android:textColor="@color/design_default_color_error"
         android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName5"
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:ems="10"
-        android:hint="Balance per Tokens"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent" />
+
+
 </LinearLayout>
