@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,11 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EtherProject">
-        <activity android:name=".importprivatekey"
-            android:label="SIGN-IN"
-            android:parentActivityName=".MainActivity">
-
+        <activity android:name=".testing"
+            android:label="SEND ETHERS AND TOKENS"
+            android:parentActivityName=".Dashboard">
         </activity>
+        <activity
+            android:name=".importprivatekey"
+            android:label="SIGN-IN"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".wallet"
             android:label="CREATE WALLET"
@@ -25,10 +29,6 @@
         <activity
             android:name=".Settings"
             android:label="SETTINGS"
-            android:parentActivityName=".Dashboard" />
-        <activity
-            android:name=".send"
-            android:label="SEND ETHERS OR TOKENS"
             android:parentActivityName=".Dashboard" />
         <activity
             android:name=".Dashboard"

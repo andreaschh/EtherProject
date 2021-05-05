@@ -21,8 +21,10 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,18 +58,16 @@ public class wallet extends AppCompatActivity {
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
+        web3 = Web3j.build(new HttpService("https://mainnet.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
 
         setupBouncyCastle();
         createWallet();
-
         }
 
     public void createWallet() {
 
         Button btnwallet=findViewById(R.id.createwallet);
-        web3 = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
-
+        web3 = Web3j.build(new HttpService("https://mainnet.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
 
         try {
             Web3ClientVersion clientVersion = web3.web3ClientVersion().sendAsync().get();
@@ -79,8 +79,6 @@ public class wallet extends AppCompatActivity {
         } catch (Exception e) {
             StyleableToast.makeText(getApplicationContext(), "Error while connecting", Toast.LENGTH_LONG, R.style.mistakeToast).show();
         }
-
-
 
         btnwallet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,67 +100,75 @@ public class wallet extends AppCompatActivity {
                     }
                 }
 
-                if( Edtpassword.getText().toString().length() == 0 )
-                    Edtpassword.setError( "Password Required" );
-                else {
-                    try {
-                        // generating the etherium wallet
-                        Walletname = WalletUtils.generateLightNewWalletFile(password, file);
-                        final String walletname=Walletname.getBytes().toString()+"\n";
-                        credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
-                        txtaddress.setText("Your public address is:"+ credentials.getAddress()+"\n");
-
-                        //create the private key and save it into the file 2
-                        ECKeyPair ecKeyPair = null;
+                if( Edtpassword.getText().toString().length() == 0)
+                    Edtpassword.setError("Password Required");
+                else{
+                    if (Edtpassword.getText().toString().length()<6)
+                        Edtpassword.setError("Password minimum contain 6 characters");
+                    else {
+                        if (Edtpassword.getText().toString().length()>10)
+                            Edtpassword.setError("Password maximum contain 10 characters");
                         try {
-                            ecKeyPair = Keys.createEcKeyPair();
-                        } catch (InvalidAlgorithmParameterException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchProviderException e) {
-                            e.printStackTrace();
-                        }
-                        BigInteger privateKeyInDec = ecKeyPair.getPrivateKey();
-                        String sPrivatekeyInHex = privateKeyInDec.toString(16);
+                            // generating the etherium wallet
+                            Walletname = WalletUtils.generateLightNewWalletFile(password, file);
+                            final String walletname=Walletname.getBytes().toString()+"\n";
+                            credentials = WalletUtils.loadCredentials(password, file + "/" + Walletname);
+                            txtaddress.setText("Your public address is:" + credentials.getAddress()+"\n");
 
-                        try{
-                            FileOutputStream fout = openFileOutput(file2,0);
-                            fout.write(sPrivatekeyInHex.getBytes());
-                            fout.close();
-                        }catch (Exception ex)
-                        {
-                            ex.printStackTrace();
-                        }
+                            //Take the Balance of the Account
+                            String Balance= "Balance: " + Convert.fromWei(web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance().toString(), Convert.Unit.ETHER);
 
-                        StyleableToast.makeText(getApplicationContext(), "You have successfully create your wallet!!", Toast.LENGTH_LONG, R.style.customToast).show();
-                        try {
-                            FileOutputStream fout = openFileOutput(file1,0);
-                            fout.write(txtaddress.getText().toString().getBytes());
-                            fout.write(etheriumwalletPath.getBytes());
-                            fout.write(password.getBytes());
-                            fout.close();
+                            //create the private key and save it into the file 2
+                            ECKeyPair ecKeyPair = null;
+                            try {
+                                ecKeyPair = Keys.createEcKeyPair();
+                            } catch (InvalidAlgorithmParameterException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchProviderException e) {
+                                e.printStackTrace();
+                            }
+                            BigInteger privateKeyInDec = ecKeyPair.getPrivateKey();
+                            String sPrivatekeyInHex = privateKeyInDec.toString(16);
 
-                        }catch (Exception ex)
-                        {
-                            ex.printStackTrace();
+                            try{
+                                FileOutputStream fout = openFileOutput(file2,0);
+                                fout.write(sPrivatekeyInHex.getBytes());
+                                fout.close();
+                            }catch (Exception ex)
+                            {
+                                ex.printStackTrace();
+                            }
+
+                            StyleableToast.makeText(getApplicationContext(), "You have successfully create your wallet!!", Toast.LENGTH_LONG, R.style.customToast).show();
+                            try {
+                                FileOutputStream fout = openFileOutput(file1,0);
+                                fout.write(txtaddress.getText().toString().getBytes());
+                                fout.write(etheriumwalletPath.getBytes());
+                                fout.write(password.getBytes());
+                                fout.write(Balance.getBytes());
+                                fout.close();
+
+                            }catch (Exception ex)
+                            {
+                                ex.printStackTrace();
+                                StyleableToast.makeText(getApplicationContext(), "Oops, something went wrong", Toast.LENGTH_LONG, R.style.mistakeToast).show();
+                            }
+                            Intent in=new Intent(wallet.this,Dashboard.class);
+                            startActivity(in);
+
+                        } catch (Exception e) {
                             StyleableToast.makeText(getApplicationContext(), "Oops, something went wrong", Toast.LENGTH_LONG, R.style.mistakeToast).show();
+
                         }
-                        Intent in=new Intent(wallet.this,Dashboard.class);
-                        startActivity(in);
-
-                    } catch (Exception e) {
-                        StyleableToast.makeText(getApplicationContext(), "Oops, something went wrong", Toast.LENGTH_LONG, R.style.mistakeToast).show();
-
                     }
                 }
 
 
             }
         });
-
     }
-
 
     private void setupBouncyCastle() {
         final Provider provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
@@ -175,7 +181,6 @@ public class wallet extends AppCompatActivity {
 
         Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME);
         Security.insertProviderAt(new BouncyCastleProvider(), 1);
-
     }
 
 }

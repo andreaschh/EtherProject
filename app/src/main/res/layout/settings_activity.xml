@@ -14,7 +14,8 @@
         android:padding="15dp"
         android:text="This is your Settings Page:"
         android:textColor="@color/design_default_color_error"
-        android:textSize="24sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/removewallet"
@@ -26,38 +27,21 @@
         app:backgroundTint="#0000FF" />
 
     <Button
-        android:id="@+id/exportprivatekey"
+        android:id="@+id/btnptivatekey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="exportprivatekey"
+        android:onClick="btnpublicaddress"
         android:padding="15dp"
         android:text="Export Private Key"
         app:backgroundTint="#0000FF" />
 
     <TextView
-        android:id="@+id/text_privatekey"
+        android:id="@+id/exportprivatekey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
         android:textColor="@color/design_default_color_error"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btnpublicaddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="btnpublicaddress"
-        android:padding="15dp"
-        android:text="Export Public Address"
-        app:backgroundTint="#0000FF" />
-
-    <TextView
-        android:id="@+id/exportpublicaddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="15dp"
-        android:textColor="@color/design_default_color_error"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 </LinearLayout>

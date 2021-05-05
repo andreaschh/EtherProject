@@ -11,10 +11,12 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="15dp"
         android:text="Insert Name and Password to Sign-in"
         android:textColor="@color/design_default_color_error"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/txt_name"

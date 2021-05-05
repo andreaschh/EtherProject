@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".testing">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="SEND ETHERS"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/toAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="toAddress"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_baseline_receipt_24"/>
+
+    <EditText
+        android:id="@+id/ethValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Ethereum Value"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_sharp_confirmation_number_24"/>
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Ethers"
+        app:backgroundTint="#0000FF" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="SEND ETHEREUM TOKENS"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/tokenAddres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="TokenAddress"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_baseline_send_24"/>
+
+    <EditText
+        android:id="@+id/toAddressToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Recipient Address"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_baseline_receipt_24"/>
+
+    <EditText
+        android:id="@+id/tokenValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Value of Tokens"
+        android:inputType="textPersonName"
+        android:drawableLeft="@drawable/ic_sharp_confirmation_number_24"/>
+
+    <Button
+        android:id="@+id/btn_sendToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send Token"
+        app:backgroundTint="#0000FF" />
+
+    <TextView
+        android:id="@+id/txt_balancetoken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="18sp"
+        app:drawableTint="@color/design_default_color_error" />
+
+    <TextView
+        android:id="@+id/txt_token"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/design_default_color_error"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/txt_tes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="invisible" />
+
+</LinearLayout>

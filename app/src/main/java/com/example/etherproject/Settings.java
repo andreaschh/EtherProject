@@ -15,6 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.muddzdev.styleabletoast.StyleableToast;
 
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Settings extends AppCompatActivity {
+    Web3j web3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,9 @@ public class Settings extends AppCompatActivity {
         ColorDrawable cd = new ColorDrawable(Color.parseColor("#0000FF"));
         getSupportActionBar().setBackgroundDrawable(cd);
 
-
-        TextView privatekey=(TextView)findViewById(R.id.text_privatekey);
-        Button export=(Button)findViewById(R.id.exportprivatekey);
+        web3 = Web3j.build(new HttpService("https://mainnet.infura.io/v3/1aa32222b470402da4666f91b37613dd"));
+        TextView privatekey=(TextView)findViewById(R.id.exportprivatekey);
+        Button export=(Button)findViewById(R.id.btnptivatekey);
         export.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,36 +65,6 @@ public class Settings extends AppCompatActivity {
 
             }
         });
-        TextView exportpublicaddress=findViewById(R.id.exportpublicaddress);
-
-        Button exportpublic=findViewById(R.id.btnpublicaddress);
-        exportpublic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    FileInputStream fin = openFileInput("pk.txt");
-                    DataInputStream din = new DataInputStream(fin);
-                    InputStreamReader isr = new InputStreamReader(din);
-                    BufferedReader br = new BufferedReader(isr);
-
-                    int i = 0;
-                    String lines[] = new String[3];
-                    String line1;
-
-                    while ((line1 = br.readLine()) != null) {
-                        lines[i] = line1;
-                        i++;
-                    }
-                    exportpublicaddress.setText(lines[0]);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        });
 
     Button removewallet=findViewById(R.id.removewallet);
 
@@ -104,7 +78,7 @@ public class Settings extends AppCompatActivity {
                 BufferedReader br = new BufferedReader(isr);
 
                 int i = 0;
-                String lines[] = new String[3];
+                String lines[] = new String[4];
                 String line1;
 
                 while ((line1 = br.readLine()) != null) {
@@ -118,7 +92,8 @@ public class Settings extends AppCompatActivity {
                 lines[0]=null;
                 lines[1]=null;
                 lines[2]=null;
-                StyleableToast.makeText(getApplicationContext(), "You have successfully remove your wallet!", Toast.LENGTH_LONG, R.style.customToast).show();
+                StyleableToast.makeText(getApplicationContext(), "Wallet has been removed successfully", Toast.LENGTH_LONG, R.style.customToast).show();
+
                 fin.close();
 
             } catch (FileNotFoundException e) {
@@ -126,7 +101,7 @@ public class Settings extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Intent in=new Intent(Settings.this,MainActivity.class);
+            Intent in=new Intent(Settings.this, wallet.class);
             startActivity(in);
 
         }
@@ -145,7 +120,7 @@ public class Settings extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            Intent in = new Intent(this, com.example.etherproject.send.class);
+            Intent in = new Intent(this, com.example.etherproject.testing.class);
             startActivity(in);
         }else if (id == R.id.action_logout) {
             Intent in = new Intent(this, MainActivity.class);

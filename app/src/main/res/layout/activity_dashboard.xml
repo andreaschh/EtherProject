@@ -9,19 +9,51 @@
     tools:context=".Dashboard">
 
     <TextView
-        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
         android:gravity="center"
-        android:text="HERE YOU CAN ADD TOKENS TO YOUR ACCOUNT BY USING THE BROWSER ABOVE:"
+        android:padding="20dp"
+        android:text="DASHBOARD"
         android:textColor="@color/design_default_color_error"
-        android:textSize="24sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <WebView
-        android:id="@+id/webview"
+    <Button
+        android:id="@+id/btn_balance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="RETRIEVE BALANCE"
+        app:backgroundTint="#0000FF" />
 
+    <TextView
+        android:id="@+id/txt_balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:drawableTint="@color/design_default_color_error" />
+
+    <Button
+        android:id="@+id/exportprivatekey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="EXPORT PUBLIC ADDRESS"
+        app:backgroundTint="#0000FF" />
+
+    <TextView
+        android:id="@+id/txt_publicaddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="@color/design_default_color_error"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:drawableTint="@color/design_default_color_error" />
 
 </LinearLayout>

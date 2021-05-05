@@ -21,6 +21,7 @@ import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,7 +72,7 @@ public class JavaToken extends Contract {
 
 
 
-    protected JavaToken(Web3j contractAddress, Credentials web3j, BigInteger credentials, BigInteger contractGasProvider) {
+    protected JavaToken(String contractAddress, Web3j web3j, Credentials credentials, DefaultGasProvider contractGasProvider) {
         super(BINARY, contractAddress, web3j, credentials, contractGasProvider);
     }
 
@@ -236,7 +237,7 @@ public class JavaToken extends Contract {
         return new JavaToken(contractAddress, web3j, transactionManager, gasPrice, gasLimit);
     }
 
-    public static JavaToken load(Web3j contractAddress, Credentials web3j, BigInteger credentials, BigInteger contractGasProvider) {
+    public static JavaToken load(String contractAddress, Web3j web3j, Credentials credentials, DefaultGasProvider contractGasProvider) {
         return new JavaToken(contractAddress, web3j, credentials,contractGasProvider);
     }
 
@@ -273,6 +274,11 @@ public class JavaToken extends Contract {
 
     public static String getPreviouslyDeployedAddress(String networkId) {
         return _addresses.get(networkId);
+    }
+
+    public DatagramSocket balanceof(String address) {
+
+        return balanceof(address);
     }
 
     public static class ApprovalEventResponse {

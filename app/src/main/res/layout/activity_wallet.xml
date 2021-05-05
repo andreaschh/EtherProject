@@ -16,7 +16,7 @@
             android:gravity="center"
             android:text="Create an Etherium Wallet:"
             android:textColor="@color/design_default_color_error"
-            android:textSize="25sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 
@@ -54,7 +54,6 @@
             android:text="Public Address"
             android:textSize="15sp"
             android:visibility="invisible"/>
-
 
 
 </LinearLayout>

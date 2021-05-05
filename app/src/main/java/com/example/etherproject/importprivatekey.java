@@ -31,9 +31,6 @@ public class importprivatekey extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(cd);
 
         Button submit = findViewById(R.id.btn_submit);
-
-
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +42,7 @@ public class importprivatekey extends AppCompatActivity {
                     BufferedReader br = new BufferedReader(isr);
 
                     int i = 0;
-                    String lines[] = new String[3];
+                    String lines[] = new String[4];
                     String line1;
 
                     while ((line1 = br.readLine()) != null) {
@@ -67,17 +64,14 @@ public class importprivatekey extends AppCompatActivity {
                     String p3 = line1matching.getText().toString();
                     String p4 = line2matching.getText().toString();
 
-
-
                     if ((p.equals(p4)) && (p2.equals(p3))) {
                         StyleableToast.makeText(getApplicationContext(), "You have successfully sign-in!", Toast.LENGTH_LONG, R.style.customToast).show();
                                 Intent in=new Intent(importprivatekey.this,Dashboard.class);
                         startActivity(in);
                     } else {
-                        StyleableToast.makeText(getApplicationContext(), "Something went wrong!", Toast.LENGTH_LONG, R.style.mistakeToast).show();
+                        name.setError("File name required");
+                        password.setError("Your password is incorrect");
                     }
-
-
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
