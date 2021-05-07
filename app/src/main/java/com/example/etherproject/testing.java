@@ -279,7 +279,6 @@ public class testing extends AppCompatActivity {
 
     Web3j web3;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
