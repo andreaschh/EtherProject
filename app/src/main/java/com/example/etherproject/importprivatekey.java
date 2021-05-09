@@ -68,8 +68,14 @@ public class importprivatekey extends AppCompatActivity {
                         StyleableToast.makeText(getApplicationContext(), "You have successfully sign-in!", Toast.LENGTH_LONG, R.style.customToast).show();
                                 Intent in=new Intent(importprivatekey.this,Dashboard.class);
                         startActivity(in);
-                    } else {
-                        name.setError("File name required");
+                    } else  if ((p.equals("")) && (p2.equals(""))) {
+                        StyleableToast.makeText(getApplicationContext(), "You must complete the required fields",
+                                Toast.LENGTH_LONG, R.style.mistakeToast).show();
+                        name.setError("");
+                        password.setError("");
+                    }else
+                    {
+                        name.setError("File name does not match!");
                         password.setError("Your password is incorrect");
                     }
                 } catch (FileNotFoundException e) {
@@ -77,8 +83,6 @@ public class importprivatekey extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
     }
