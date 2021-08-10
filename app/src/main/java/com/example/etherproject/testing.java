@@ -388,12 +388,10 @@ public class testing extends AppCompatActivity {
                         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
                         String balance2 = "Balance: " + Convert.fromWei(web3.ethGetBalance(credentials.getAddress(), DefaultBlockParameterName.LATEST).send().getBalance().toString(), Convert.Unit.ETHER);
-                        if (balance2.equals(0)) {
-                            StyleableToast.makeText(getApplicationContext(), "Low Balance", Toast.LENGTH_LONG, R.style.mistakeToast).show();
-                            TextView txt_balancetoken = findViewById(R.id.txt_balancetoken);
-                            txt_balancetoken.setText(balance2);
+                        StyleableToast.makeText(getApplicationContext(), "Low Balance", Toast.LENGTH_LONG, R.style.mistakeToast).show();
+                        TextView txt_balancetoken = findViewById(R.id.txt_balancetoken);
+                        txt_balancetoken.setText(balance2);
 
-                        }
                         BigInteger gasLimit = BigInteger.valueOf(71000);
                         BigInteger gasPrice = new BigInteger(String.valueOf(16));
 
